@@ -16,18 +16,16 @@ int main() {
 		std::cout << platformName << std::endl;
 	}
 
-	constexpr size_t globalSize = 12;
-
 	cl_uint deviceCount = 0;
 	cl_device_id deviceId = 0;
 	clGetDeviceIDs(platform[0], CL_DEVICE_TYPE_GPU, 1, &deviceId, &deviceCount);
 	cl_context context = clCreateContext(nullptr, 1, &deviceId, nullptr, nullptr, nullptr);
 	cl_command_queue queue = clCreateCommandQueue(context, deviceId, 0, nullptr);
-
+	
 	IAm(context, deviceId, queue, 512);
 	std::vector<cl_uint> vec(512, 0);
 	SumGlobalId(vec, context, deviceId, queue);
-
+	
 	clReleaseContext(context);
 	clReleaseCommandQueue(queue);
 	delete[] platform;
