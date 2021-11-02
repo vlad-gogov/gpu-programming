@@ -20,9 +20,9 @@ void IAm(cl_context context, cl_device_id deviceId, cl_command_queue queue, size
 		checkRetValue("clBuildProgram", ret);
 		kernel = clCreateKernel(program, "IAm", &ret);
 		checkRetValue("clCreateKernel", ret);
-		size_t group;
-		ret = clGetKernelWorkGroupInfo(kernel, deviceId, CL_KERNEL_WORK_GROUP_SIZE, sizeof(size_t), &group, nullptr);
-		checkRetValue("clGetKernelWorkGroupInfo", ret);
+		size_t group = { 256 };
+		//ret = clGetKernelWorkGroupInfo(kernel, deviceId, CL_KERNEL_WORK_GROUP_SIZE, sizeof(size_t), &group, nullptr);
+		//checkRetValue("clGetKernelWorkGroupInfo", ret);
 		ret = clEnqueueNDRangeKernel(queue, kernel, 1, nullptr, &globalWorkSize, &group, 0, nullptr, nullptr);
 		checkRetValue("clEnqueueNDRangeKernel", ret);
 		std::cout << std::endl;
